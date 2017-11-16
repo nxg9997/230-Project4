@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pixi Demo</title>
+    
+</head>
+<script src="pixi.min.js"></script>
+<body>
+    <script type="text/javascript">
+
+        //check if pixi is working
+        /*var type = "WebGL";
+        if (!PIXI.utils.isWebGLSupported()){
+            type = "canvas";
+        }
+
+        PIXI.utils.sayHello(type);*/
+
+        //display area
+        //let renderer = PIXI.autoDetectRenderer(256,256);
+
+        //edit renderer styles
+        /*renderer.view.style.border = "1px dashed black";
+        renderer.backgroundColor = 0xF3B633;
+        renderer.autoResize = true;
+        renderer.resize(512,512);*/
+
+        //document.body.appendChild(renderer.view);
+        //let stage = new PIXI.Container();
+        //renderer.render(stage);
+
+        //load image
+        /*let texture = PIXI.utils.TextureCache["images/sprite.png"];
+        let sprite = new PIXI.Sprite(texture);*/
+
+        /*PIXI.loader.add("images/cat.png")
+            
+        PIXI.loader.load(loadImage);
+
+        function loadImage(){
+            let newSprite = new PIXI.Sprite(
+                PIXI.loader.resources["images/cat.png"].texture
+            );
+
+            stage.addChild(newSprite);
+            renderer.render(stage);
+        }*/
+
+        var stage = new PIXI.Container(),
+        renderer = PIXI.autoDetectRenderer(256, 256);
+        document.body.appendChild(renderer.view);
+        var cat;
+        var box = new PIXI.Graphics();
+        box.beginFill(0xFFFFFF);
+        box.drawRect(50, 50, 50, 50);
+        box.endFill();
+        stage.addChild(box);
+        //var keyObject =keyboard(asciiKeyCodeNumber);
+        
+
+        //Use Pixi's built-in `loader` object to load an image
+        PIXI.loader
+            .add("images/cat.png")
+            .load(setup);
+
+        //This `setup` function will run when the image has loaded
+        function setup() {
+            //Capture the keyboard arrow keys
+            var left = keyboard(37),
+                up = keyboard(38),
+                right = keyboard(39),
+                down = keyboard(40);
+
+            //Left arrow key `press` method
+            left.press = function() {
+
+                //Change the cat's velocity when the key is pressed
+                cat.vx = -5;
+                cat.vy = 0;
+            };
+
+            //Left arrow key `release` method
+            left.release = function() {
+
+                //If the left arrow has been released, and the right arrow isn't down,
+                //and the cat isn't moving vertically:
+                //Stop the cat
+                if (!right.isDown && cat.vy === 0) {
+                cat.vx = 0;
+                }
+            };
+
+            //Up
+            up.press = function() {
+                cat.vy = -5;
+                cat.vx = 0;
+            };
+            up.release = function() {
+                if (!down.isDown && cat.vx === 0) {
+                cat.vy = 0;
+                }
+            };
+
+            //Right
+            right.press = function() {
+                cat.vx = 5;
+                cat.vy = 0;
+            };
+            right.release = function() {
+                if (!left.isDown && cat.vy === 0) {
+                cat.vx = 0;
+                }
+            };
+
+            //Down
+            down.press = function() {
+                cat.vy = 5;
+                cat.vx = 0;
+            };
+            down.release = function() {
+                if (!up.isDown && cat.vx === 0) {
+                cat.vy = 0;
+                }
+            };
+
+            //Create the `cat` sprite from the texture
+            cat = new PIXI.Sprite(
+                PIXI.loader.resources["images/cat.png"].texture
+            );
+
+            cat.x = 96;
+            cat.y = 96;
+
+            cat.vx = 0;
+            cat.vy = 0;
+
+            //set pivot
+            cat.anchor.x = .5;
+            cat.anchor.y = .5;
+
+            //Add the cat to the stage
+            stage.addChild(cat);
+            
+            //Render the stage   
+            //renderer.render(stage);
+
+            //start game
+            gameLoop();
+        }
+
+        function gameLoop(){
+            requestAnimationFrame(gameLoop);
+
+            //cat.x += 1;
+            //cat.vx = 1;
+            //cat.vy = 1;
+
+            cat.x += cat.vx;
+            cat.y += cat.vy;
+
+
+
+            renderer.render(stage);
+        }
+
+        function keyboard(keyCode) {
+            var key = {};
+            key.code = keyCode;
+            key.isDown = false;
+            key.isUp = true;
+            key.press = undefined;
+            key.release = undefined;
+            //The `downHandler`
+            key.downHandler = function(event) {
+                if (event.keyCode === key.code) {
+                if (key.isUp && key.press) key.press();
+                key.isDown = true;
+                key.isUp = false;
+                }
+                event.preventDefault();
+            };
+
+            //The `upHandler`
+            key.upHandler = function(event) {
+                if (event.keyCode === key.code) {
+                if (key.isDown && key.release) key.release();
+                key.isDown = false;
+                key.isUp = true;
+                }
+                event.preventDefault();
+            };
+
+            //Attach event listeners
+            window.addEventListener(
+                "keydown", key.downHandler.bind(key), false
+            );
+            window.addEventListener(
+                "keyup", key.upHandler.bind(key), false
+            );
+            return key;
+        }
+
+    </script>
+</body>
+</html>
