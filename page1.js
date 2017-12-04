@@ -13,11 +13,12 @@ let maxForce = 2;
 let mass = 1;
 
 let mousePos;
-let currMouse;
+//let currMouse;
 
-let updateInterval = setInterval(Update, 200);
+
 
 InstantiateTris();
+let updateInterval = setInterval(Update, 33);
 //Seek(new Victor(100,100), triPosArr[0]); //test calculations
 
 function InstantiateTris(){
@@ -94,8 +95,9 @@ function Seek(target, currTri){
     */
     /*console.log("tX: " + target.x);
     console.log("cX: " + currTri.x);*/
+    let currtarget = new Victor(target.x, target.y);
 
-    let desiredVelocity = target.subtract(currTri);
+    let desiredVelocity = currtarget.subtract(currTri);
     desiredVelocity.normalize();
     desiredVelocity.limit(0, maxForce);
     //console.log("scaled: " + desiredVelocity.length());
@@ -119,14 +121,18 @@ function CalcSteeringForces(){
         acceleration.y = 0;
     */
     //console.log("in csf");
-    
-
+    var currMouse = mousePos;
+    console.log(currMouse.x + " : " + currMouse.y);
+    //console.log("Number: " + i + " Target: [" + currMouse.x + ", " + currMouse.y + "]");
     for (let i = 0; i < triNum; i++){
-        let ultimate = new Victor(0, 0);
-        console.log("Number: " + i + " Target: [" + currMouse.x + ", " + currMouse.y + "]");
-        ultimate = ultimate.add(Seek(currMouse, triPosArr[i]));
-        triAccArr[i].add(ultimate);
+        //let ultimate = new Victor(0, 0);
+        console.log(currMouse.x + " : " + currMouse.y);
+        //ultimate = ultimate.add(Seek(currMouse, triPosArr[i]));
+        triAccArr[i].add(Seek(currMouse, triPosArr[i]));
     }
+    /*triAccArr[0].add(Seek(currMouse, triPosArr[0]));
+    console.log(currMouse.x + " : " + currMouse.y);
+    triAccArr[1].add(Seek(currMouse, triPosArr[1]));*/
     
 }
 
@@ -169,7 +175,7 @@ function Update(){
     //Seek(mousePos, triPosArr[0]);//test update
     //FollowMouse();
     //console.log(mousePos.x + " " + mousePos.y);
-    currMouse = mousePos;
+    //currMouse = mousePos;
     CalcSteeringForces();
     UpdatePosition();
 }
