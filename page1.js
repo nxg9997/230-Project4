@@ -2,6 +2,9 @@ let tri = "tri.svg";
 let triNum = 10;
 let triHeight = 72;
 let triWidth = 44;
+let avoidDistance = 100;
+let sWidth = 0;
+let sHeight = 0;
 
 let triArr;
 let triPosArr = new Array(triNum);
@@ -12,14 +15,25 @@ let maxSpeed = 10;
 let maxForce = 2;
 let mass = 1;
 
-let mousePos;
+let mousePos = new Victor(0, 0);
+let lastMousePos = new Victor(0, 0);
+let IsMouseSame = false;
+let CanMove = true;
+let stopTris;
 //let currMouse;
 
 
-
+GetScreenDimentions();
 InstantiateTris();
 let updateInterval = setInterval(Update, 33);
 //Seek(new Victor(100,100), triPosArr[0]); //test calculations
+
+function GetScreenDimentions(){
+    sWidth = window.innerWidth;
+    sHeight = window.innerHeight;
+
+    console.log("W: " + sWidth + " H: " + sHeight);
+}
 
 function InstantiateTris(){
 
@@ -49,7 +63,7 @@ function InstantiateTris(){
     for (let i = 0; i < triNum; i++){
         triAccArr[i] = new Victor(0, 0);
         triVelArr[i] = new Victor(0, 0);
-        triPosArr[i] = new Victor(0, 0);
+        triPosArr[i] = new Victor(50 * i, 50 * i);
     }
 
     //console.log(triPosArr[0]);
@@ -104,6 +118,16 @@ function Seek(target, currTri){
     return desiredVelocity;
 }
 
+function Flee(target, currTri){
+    let currtarget = new Victor(currTri.x, currTri.y);
+
+    let desiredVelocity = currtarget.subtract(target);
+    desiredVelocity.normalize();
+    desiredVelocity.limit(0, maxForce);
+    //console.log("scaled: " + desiredVelocity.length());
+    return desiredVelocity;
+}
+
 function CalcSteeringForces(){
     /*
     Vector3 ultimate = Vector3.zero;
@@ -122,14 +146,26 @@ function CalcSteeringForces(){
     */
     //console.log("in csf");
     var currMouse = mousePos;
-    console.log(currMouse.x + " : " + currMouse.y);
+    //console.log(currMouse.x + " : " + currMouse.y);
     //console.log("Number: " + i + " Target: [" + currMouse.x + ", " + currMouse.y + "]");
     for (let i = 0; i < triNum; i++){
-        //let ultimate = new Victor(0, 0);
-        console.log(currMouse.x + " : " + currMouse.y);
-        //ultimate = ultimate.add(Seek(currMouse, triPosArr[i]));
-        triAccArr[i].add(Seek(currMouse, triPosArr[i]));
+        let ultimate = new Victor(0, 0);
+        //console.log(currMouse.x + " : " + currMouse.y);
+        if (IsMouseSame){
+            ultimate = ultimate.add(Seek(new Victor(sWidth / 2, sHeight / 2), triPosArr[i]));
+        }
+        else{
+            ultimate = ultimate.add(Seek(currMouse, triPosArr[i]));
+            //stopTris = setInterval(Pause, 5000);
+        }
+        
+        //triAccArr[i].add(Seek(currMouse, triPosArr[i]));
+        ultimate.add(Separation(triPosArr[i]));
+        ultimate.limit(maxForce, maxForce);
+        triAccArr[i].add(ultimate);
     }
+
+    
     /*triAccArr[0].add(Seek(currMouse, triPosArr[0]));
     console.log(currMouse.x + " : " + currMouse.y);
     triAccArr[1].add(Seek(currMouse, triPosArr[1]));*/
@@ -176,6 +212,39 @@ function Update(){
     //FollowMouse();
     //console.log(mousePos.x + " " + mousePos.y);
     //currMouse = mousePos;
-    CalcSteeringForces();
-    UpdatePosition();
+    
+    if (lastMousePos == mousePos){
+        IsMouseSame = true;
+    }
+    else{
+        IsMouseSame = false;
+        CanMove = true;
+    }
+
+    if (CanMove){
+        CalcSteeringForces();
+        UpdatePosition();
+    }
+    
+    lastMousePos = mousePos;
+}
+
+function Separation(currTri){
+    let result = new Victor(0, 0);
+    //for (let i = 0; i < triNum; i++){
+        for (let j = 0; j < triNum; j++){
+            if (currTri != triPosArr[j]){
+                if (currTri.distanceSq(triPosArr[j]) < avoidDistance * avoidDistance){
+                    result.add(Flee(triPosArr[j], currTri));
+                }
+            }
+        }
+    //}
+
+    return result;
+}
+
+function Pause(){
+    CanMove = false;
+    window.clearInterval(stopTris);
 }
