@@ -194,10 +194,14 @@ function UpdatePosition () {
         triAccArr[i] = new Victor(0, 0);
     
         //console.log(triVelArr[i].length());
+        let direction = triVelArr[i].horizontalAngleDeg();
+        console.log(direction);
     
         let newPos = new Victor(position.x + triPosArr[i].x, position.y + triPosArr[i].y)
         triArr[i].style.top = position.y + "px";
         triArr[i].style.left = position.x + "px";
+        triArr[i].style.transform = "rotate(" + direction + "deg)";
+        triArr[i].style.transformOrigin = "0% 0%";
     
         triPosArr[i] = position;
     }
