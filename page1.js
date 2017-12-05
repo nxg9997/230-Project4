@@ -11,8 +11,8 @@ let triPosArr = new Array(triNum);
 let triVelArr = new Array(triNum);
 let triAccArr = new Array(triNum);
 
-let maxSpeed = 10;
-let maxForce = 2;
+let maxSpeed = 20;
+let maxForce = 1;
 let mass = 1;
 
 let mousePos = new Victor(0, 0);
@@ -54,6 +54,7 @@ function InstantiateTris(){
         let newLeft = 0 - triWidth / 2;
         triArr[i].style.top = "" + newTop + "px";
         triArr[i].style.left = "" + newLeft + "px";
+        triArr[i].style.transformOrigin = "0% 0%";
     }
 
     /*triAccArr = new Array(triArr.length);
@@ -194,14 +195,15 @@ function UpdatePosition () {
         triAccArr[i] = new Victor(0, 0);
     
         //console.log(triVelArr[i].length());
-        let direction = triVelArr[i].horizontalAngleDeg();
+        let direction = triVelArr[i].horizontalAngleDeg() + 90;
         console.log(direction);
     
         let newPos = new Victor(position.x + triPosArr[i].x, position.y + triPosArr[i].y)
         triArr[i].style.top = position.y + "px";
         triArr[i].style.left = position.x + "px";
         triArr[i].style.transform = "rotate(" + direction + "deg)";
-        triArr[i].style.transformOrigin = "0% 0%";
+        //triArr[i].transform({rotation: direction});
+        
     
         triPosArr[i] = position;
     }
