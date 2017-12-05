@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:800');
+
+html{
+    overflow: hidden;
+}
+
+body{
+    background-color: #272727;
+}
+
+p{
+    color: #727272;
+    font-family: 'Raleway', sans-serif;
+    position: absolute;
+    top: 5%;
+    left: 27.5%;
+    text-align: center;
+    font-size: 25px;
+}
+
+footer{
+    color: #727272;
+    font-family: 'Raleway', sans-serif;
+    position: absolute;
+    text-align: center;
+    bottom: 1%;
+    left: 0; right: 0;
+}

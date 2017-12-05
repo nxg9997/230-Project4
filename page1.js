@@ -1,3 +1,5 @@
+
+//variables for controlling the triangles
 let tri = "tri.svg";
 let triNum = 10;
 let triHeight = 72;
@@ -6,15 +8,18 @@ let avoidDistance = 100;
 let sWidth = 0;
 let sHeight = 0;
 
+//create arrays for stores the triangle data
 let triArr;
 let triPosArr = new Array(triNum);
 let triVelArr = new Array(triNum);
 let triAccArr = new Array(triNum);
 
+//variables for fine-tuning forces
 let maxSpeed = 20;
 let maxForce = 1;
 let mass = 1;
 
+//variables for mouse interaction
 let mousePos = new Victor(0, 0);
 let lastMousePos = new Victor(0, 0);
 let IsMouseSame = false;
@@ -25,9 +30,12 @@ let stopTris;
 
 GetScreenDimentions();
 InstantiateTris();
+
+//sets the refresh rate / starts the update method
 let updateInterval = setInterval(Update, 33);
 //Seek(new Victor(100,100), triPosArr[0]); //test calculations
 
+//method for getting the screen resolution
 function GetScreenDimentions(){
     sWidth = window.innerWidth;
     sHeight = window.innerHeight;
@@ -35,6 +43,7 @@ function GetScreenDimentions(){
     console.log("W: " + sWidth + " H: " + sHeight);
 }
 
+//method for creating the triangles and setting default values
 function InstantiateTris(){
 
     for(let i = 0; i < triNum; i++){
@@ -100,6 +109,7 @@ function FollowMouse(){
     UpdatePosition();*/
 }
 
+//method for AI following
 function Seek(target, currTri){
     /*
         Vector3 desiredVelocity = targetPos - position;
@@ -119,6 +129,7 @@ function Seek(target, currTri){
     return desiredVelocity;
 }
 
+//method for AI avoidance
 function Flee(target, currTri){
     let currtarget = new Victor(currTri.x, currTri.y);
 
@@ -129,6 +140,7 @@ function Flee(target, currTri){
     return desiredVelocity;
 }
 
+//method for determining overall force acting on the triangles
 function CalcSteeringForces(){
     /*
     Vector3 ultimate = Vector3.zero;
@@ -173,6 +185,7 @@ function CalcSteeringForces(){
     
 }
 
+//method for updating the transform of the triangles on the screen
 function UpdatePosition () {
     /*position = gameObject.transform.position;
     velocity += acceleration;
@@ -213,6 +226,7 @@ function UpdatePosition () {
 //sets function for tracking mouse to the onmousemove event
 document.onmousemove = FollowMouse;
 
+//method called ~30 times per second | "main loop"
 function Update(){
     //Seek(mousePos, triPosArr[0]);//test update
     //FollowMouse();
@@ -235,6 +249,7 @@ function Update(){
     lastMousePos = mousePos;
 }
 
+//method for keeping triangles away from each other
 function Separation(currTri){
     let result = new Victor(0, 0);
     //for (let i = 0; i < triNum; i++){
