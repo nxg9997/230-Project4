@@ -6,6 +6,8 @@ html{
 
 body{
     background-color: #272727;
+    color: #727272;
+    font-family: 'Raleway', sans-serif;
 }
 
 p{
@@ -13,7 +15,8 @@ p{
     font-family: 'Raleway', sans-serif;
     position: absolute;
     top: 5%;
-    left: 27.5%;
+    left: 0;
+    right: 0;
     text-align: center;
     font-size: 25px;
 }
@@ -25,4 +28,20 @@ footer{
     text-align: center;
     bottom: 1%;
     left: 0; right: 0;
+}
+
+h1{
+    font-size: 50px;
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+nav ul{
+    text-align: center;
+    /*display: inline-block;*/
+    list-style-type: none;
+    transform: translateX(-15px);
 }
