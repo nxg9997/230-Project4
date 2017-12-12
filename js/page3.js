@@ -232,7 +232,11 @@ document.addEventListener('mousedown', function(e) {
         e = e || window.event;
         holding = e.holding || e.srcElement;
         //console.log("pressed: " + holding.alt);
-        if (holding.alt.includes('object')){
+        if (holding.alt == null){
+            //console.log("nothing here");
+            holding = null;
+        }
+        else if (holding.alt.includes('object')){
             IsHolding = true;
             initMousePos = new Victor(mousePos.x, mousePos.y);
             //console.log("start: {" + initMousePos.x + "," + initMousePos.y + "}");
@@ -240,6 +244,7 @@ document.addEventListener('mousedown', function(e) {
         }
         else {
             //console.log("undef");
+            holding = null;
         }
     }
     
