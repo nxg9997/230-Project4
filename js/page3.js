@@ -1,7 +1,7 @@
 //variables for controlling the triangles
-let tri = "tri.svg";
-let hex = "hex.svg";
-let square = "square.svg";
+let tri = "./img/tri.svg";
+let hex = "./img/hex.svg";
+let square = "./img/square.svg";
 let triNum = 10;
 let triHeight = 72;
 let triWidth = 44;
@@ -85,9 +85,11 @@ function InstantiateObjects(){
     }
 
     for (let i = 0; i < triNum; i++){
+        let randX = Math.random() * sWidth;
+        let randY = Math.random() * sHeight;
         triAccArr[i] = new Victor(0, 0);
         triVelArr[i] = new Victor(0, 0);
-        triPosArr[i] = new Victor(50 * i, 50 * i);
+        triPosArr[i] = new Victor(randX, randY);
     }
 
     //console.log(triPosArr[0]);

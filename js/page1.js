@@ -1,6 +1,6 @@
 
 //variables for controlling the triangles
-let tri = "tri.svg";
+let tri = "./img/tri.svg";
 let triNum = 10;
 let triHeight = 72;
 let triWidth = 44;
