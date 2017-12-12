@@ -226,6 +226,7 @@ function UpdatePosition () {
 document.onmousemove = FollowMouse;
 
 //checks which object was clicked by the user
+//based on: https://stackoverflow.com/questions/9012537/how-to-get-the-element-clicked-for-the-whole-document
 document.addEventListener('mousedown', function(e) {
     //console.log(!holding);
     if (!holding){
