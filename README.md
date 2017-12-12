@@ -18,12 +18,12 @@ I will need to include libraries that can handle animations for each page, anoth
 that can handle SVG manipulation for page 2, since shapes will be moving around the screen
 frequently, and also a library that can handle audio for page 3.
 Possible Resources:
-..* jQuery (animation)
-..* Anime.js (animation)
-..* Velocity.js (animation)
-..* SVG.js (SVGs)
-..* Snap.svg (SVGs)
-..* Howler.js (audio)
+* jQuery (animation)
+* Anime.js (animation)
+* Velocity.js (animation)
+* SVG.js (SVGs)
+* Snap.svg (SVGs)
+* Howler.js (audio)
 
 
 ## Final Product
@@ -33,4 +33,5 @@ This project is a series of three similar interactive pages. The first page is a
 
 ### Needed Resources:
 The only required resource that I used was a library for handling vector math and calculations.
-..* Victor.js (vector math)
+Used Resources:
+* Victor.js (vector math)
