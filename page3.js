@@ -243,6 +243,7 @@ document.addEventListener('mousedown', function(e) {
     
 }, false);
 
+//when the user unclicks, a force is applied to the object being dragged
 document.addEventListener('mouseup', function() {
     if (IsHolding){
         finalMousePos = new Victor(mousePos.x, mousePos.y);
@@ -275,6 +276,7 @@ function Update(){
     lastMousePos = mousePos;
 }
 
+//applies a force to an object
 function ApplyForce(objAlt, force){
     for (let i = 0; i < triArr.length; i++){
         if (triArr[i].alt == objAlt){
@@ -284,6 +286,7 @@ function ApplyForce(objAlt, force){
     }
 }
 
+//clicked object is dragged around the screen
 function MoveHolding(){
     
     if (IsHolding){
@@ -315,6 +318,7 @@ function MoveHolding(){
     }
 }
 
+//method for bouncing objects off walls, for some reason the objects just stick to walls instead
 function Bounce(){
     for (let i = 0; i < triArr.length; i++){
         if (triPosArr[i].x > sWidth || triPosArr[i].x < 72 || triPosArr[i].y > sHeight - 72 || triPosArr[i].y < 0){
