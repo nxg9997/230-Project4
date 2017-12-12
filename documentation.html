@@ -11,27 +11,27 @@
     <h1>Documentation</h1>
 
     <h2>Technologies and Techniques</h2>
-    <ul>
+    <ul class="doc">
         <li>The main JavaScript library that I used to complete this project was victor.js, which is a library used for vector calculations.</li>
         <li>In order to move objects around on the screen, I used vectors to hold the position, velocity, and acceleration of each object/shape.</li>
         <li>I also created an Update method, which updates the screen about 30 times per second, and each update calculates the new position of each object based on its acceleration and velocity vectors.</li>
     </ul>
 
     <h2>What I Learned</h2>
-    <ul>
+    <ul class="doc">
         <li>The main thing I had to learn was how to use the victor.js library, which is different from how vector calculations are done in C# and Unity, so there was a bit of a learning curve.</li>
         <li>I also spent a long time debugging my vector math because only one object would move correctly while others didn't. I found that in JavaScript, setting a variable equal to another (at least in terms of objects of a class) both variables control the same value, which is why I was seeing this behavior.</li>
         <li>I also learned quite a bit about interaction with the page, and I have a lot more practice with adding event handlers when certain actions are perfomed on the page.</li>
     </ul>
 
     <h2>Above and Beyond</h2>
-    <ul>
+    <ul class="doc">
         <li>In order to get the behaviors I wanted, I needed to incorporate algorithms that I learned in other classes, specifically the algorithms for Autonomous Agents (which allows the objects/shapes to move around on their own). We learned these algorithms in Unity and ultimately C#, and although the basic algorithm is the same, the way that I had to code them in JavaScript is much different because of how the language is structured, as well as how the victor.js library works much differently from the Vector2 class in Unity.</li>
         <li>I also had to figure out how to constantly update the webpage, since the objects/shapes have to move around on the screen. I created an Update method that runs about 30 times per second. To do this, I learned how to create an Interval variable that runs a function every specified number of milliseconds.</li>
     </ul>
 
     <h2>Resources</h2>
-    <ul>
+    <ul class="doc">
         <li><a href="http://victorjs.org/">Victor.js</a> - JavaScript library for vector math</li>
         <li><a href="http://natureofcode.com/">Nature of Code by Daniel Shiffman</a> - textbook that Autonomous behaviors are described in</li>
         <li><a href="https://stackoverflow.com/questions/7790725/javascript-track-mouse-position">StackOverflow</a> - function for tracking mouse position</li>

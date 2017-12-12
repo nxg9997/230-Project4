@@ -47,6 +47,17 @@ nav ul{
 
 }
 
+/*.doc{
+    width: 50%;
+    left: 0; right: 0;
+}
+
+.doc ul{
+    text-align: center;
+    list-style-type: none;
+    transform: translateX(-15px);
+}*/
+
 a{
     text-decoration: none;
     color: #e4e4e4;
