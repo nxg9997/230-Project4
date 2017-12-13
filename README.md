@@ -31,6 +31,8 @@ Possible Resources:
 ### Description:
 This project is a series of three similar interactive pages. The first page is a flocking group that follows the users mouse position. The flockers will eventually move about the center of the screen if the mouse becomes idle or disappears. The second page is another version of the first page where the user can click to place individual flocking objects around on the screen. The third and final page is similar in that there are shapes that are moving around the screen, but this time you can drag and flick the shapes around on the screen, sticking them to the edges of the screen.
 
+I changed some pages from my initial proposal because I realized that I was too ambitious when thinking of ideas for the project, and so I tried to keep the basic interaction the same on each page, but I reduced the number of libraries I ultimately used and focused on making interesting interactive pages. Page 1 remained the same (flockers follow mouse), page 2 still requires the user to click around the screen, but now it just creates objects instead of creating a sound effect, and page 3 removes collisions between objects while keeping the "sling" interaction.
+
 ### Needed Resources:
 The only required resource that I used was a library for handling vector math and calculations.
 Used Resources:
